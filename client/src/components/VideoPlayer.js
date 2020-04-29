@@ -1,5 +1,6 @@
 import React from 'react';
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
+import ReactPlayer from 'react-player';
 
 const VideoPlayer = function(props) {
     const opts = {
@@ -12,11 +13,12 @@ const VideoPlayer = function(props) {
     };
     const _onReady = function(event) {
         // access to player in all event handlers via event.target
-        event.target.pauseVideo();
+        // event.target.pauseVideo();
+        console.log(event.target);
       }
 
     return (
-        <YouTube videoId="2g811Eo7K8U" opts={opts} onReady={_onReady}/>
+        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing opts={opts} onReady={_onReady}/>
 
     )
 }
