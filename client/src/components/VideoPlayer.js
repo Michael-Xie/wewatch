@@ -3,7 +3,8 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { Button, Input } from '@material-ui/core';
 
-const VideoPlayer = function(props) {
+const VideoPlayer = function({props}) {
+
     const opts = {
         height: '390',
         width: '640',
@@ -15,12 +16,12 @@ const VideoPlayer = function(props) {
     const _onReady = function(event) {
         // access to player in all event handlers via event.target
         // event.target.pauseVideo();
-        console.log(event.target);
+        console.log("onReady", event);
       }
 
     return (
         <>
-            <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing opts={opts} onReady={_onReady}/>
+            <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' controls onReady={_onReady}/>
             <form>
                 <Input placeholder="Enter Link" inputProps={{ 'aria-label': 'Enter Link' }} required/>
                 <Button variant="contained" color="primary">Load</Button>
