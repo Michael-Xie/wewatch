@@ -1,6 +1,7 @@
 import React from 'react';
 // import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player';
+import { Button, Input } from '@material-ui/core';
 
 const VideoPlayer = function(props) {
     const opts = {
@@ -21,12 +22,9 @@ const VideoPlayer = function(props) {
         <>
             <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing opts={opts} onReady={_onReady}/>
             <form>
-                <label for="video-link">Enter link: </label>
-                <input type="text" name="video-link" id="video-link" required/>
-                <button>Load</button>
+                <Input placeholder="Enter Link" inputProps={{ 'aria-label': 'Enter Link' }} required/>
+                <Button variant="contained" color="primary">Load</Button>
             </form>
-
-
         </>
 
     )
