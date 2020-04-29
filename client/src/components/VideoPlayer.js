@@ -18,7 +18,16 @@ const VideoPlayer = function(props) {
       }
 
     return (
-        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing opts={opts} onReady={_onReady}/>
+        <>
+            <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' playing opts={opts} onReady={_onReady}/>
+            <form>
+                <label for="video-link">Enter link: </label>
+                <input type="text" name="video-link" id="video-link" required/>
+                <button>Load</button>
+            </form>
+
+
+        </>
 
     )
 }
