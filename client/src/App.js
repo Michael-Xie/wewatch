@@ -26,10 +26,23 @@ function App() {
   }, []);
 
   console.log('sync app', sync)
+  // initialize sync doc for video state
+  const initVideoState = {
+    url: "https://",
+    playing: false
+  };
+  useEffect(()=> {
+    if (sync) {
+      sync.document("videoState")
+      .then((syncDoc) => {
+        syncDoc.set(initVideoState);
+      })
+    }
+  }, [sync]);
 
   return (
     <div className="App">
-      <VideoPlayer twilioSync={sync}/>
+      <VideoPlayer twilioSync={sync} initVideoState={initVideoState}/>
     </div>
   );
 }
