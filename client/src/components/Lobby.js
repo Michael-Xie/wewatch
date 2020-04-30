@@ -1,12 +1,6 @@
 import React from 'react';
 
-const Lobby = ({
-  username,
-  handleUsernameChange,
-  roomName,
-  handleRoomNameChange,
-  handleSubmit
-}) => {
+export default ({ username, handleUsernameChange, roomName, handleRoomNameChange, handleSubmit}) => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Enter a room</h2>
@@ -36,4 +30,3 @@ const Lobby = ({
   );
 };
 
-export default Lobby;

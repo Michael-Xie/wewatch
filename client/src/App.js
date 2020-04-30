@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import VideoChat from './components/VideoChat';
+import VideoRoom from './components/VideoRoom';
 import VideoPlayer from "./components/VideoPlayer";
 import axios from "axios";
 const SyncClient = require('twilio-sync');
 
 const SERVER_URL = "http://localhost:3001";
+
 function App() {
 
   useEffect(()=>{
@@ -24,13 +25,17 @@ function App() {
     .catch((err) => console.log(err));
   }, []);
 
-  
-
 
   return (
     <div className="App">
-      <VideoChat />
-      <VideoPlayer/>
+      <header>
+        <h1>Together WeWatch</h1>
+      </header>
+        <VideoRoom />
+        <VideoPlayer/> 
+      <footer>
+        <p>April 2020</p>
+      </footer>
     </div>
   );
 }
