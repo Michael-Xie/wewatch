@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const http = require('http');
 const path = require('path');
 const AccessToken = require('twilio').jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
@@ -26,4 +27,5 @@ app.get('/token', (req, res) => {
 
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'build/index.html')));
 
-app.listen(8081, () => console.log('token server running on 8081'));
+const server = http.createServer(app);
+server.listen(3001, () => console.log('token server running on 8081'));

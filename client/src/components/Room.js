@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer } from '@material-ui/core';
 import Video from 'twilio-video';
+import Participant from './Participant';
 
-const Room = ({ roomName, token }) => {
+export default ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
 
   const remoteParticipants = participants.map(participant => (
-    <p key={participant.sid}>participant.identity</p>
+    <Participant key={participant.sid} participant={participant} />
   ));
 
   useEffect(() => {
@@ -27,22 +28,32 @@ const Room = ({ roomName, token }) => {
       room.on('participantDisconnected', participantDisconnected);
       room.participants.forEach(participantConnected);
     });
-  });
+    return () => {
+      setRoom(currentRoom => {
+        if (currentRoom && currentRoom.localParticipant.state === 'connected') {
+          currentRoom.localParticipant.tracks.forEach(function(trackPublication) {
+            trackPublication.track.stop();
+          });
+          currentRoom.disconnect();
+          return null;
+        } else {
+          return currentRoom;
+        }
+      });
+    };
+  }, [roomName, token]);
 
   return (
     <div className="room">
       <h2>Room: {roomName}</h2>
       <Drawer
-        // className={classes.drawer}
         variant="permanent"
-        // classes={{
-        //   paper: classes.drawerPaper,
-        // }}
         anchor="right"
+        width="45%"
        >
         <div className="local-participant">
           {room ? (
-            <p key={room.localParticipant.sid}>{room.localParticipant.identity}</p>
+            <Participant key={room.localParticipant.sid} participant={room.localParticipant} />
           ) : (
             ''
           )}
@@ -54,5 +65,3 @@ const Room = ({ roomName, token }) => {
   );
 
 };
-
-export default Room;
