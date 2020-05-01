@@ -18,8 +18,15 @@ export default function VideoRoom () {
 
   const handleSubmit = useCallback(async event => {
     event.preventDefault();
-    const data = await axios.get('http://localhost:3001/token')
-      .then(res => res.data)
+    const data = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/token',
+      data: {id: username}
+    })
+      .then(res => {
+        console.log("res.data", res.data)
+        return res.data
+      })
       setToken(data.token);
     }, [username, roomName]);
 
