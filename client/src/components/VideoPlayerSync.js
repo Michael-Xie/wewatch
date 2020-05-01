@@ -17,14 +17,14 @@ const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
           updateVideoState(url, false);
         }
     }
-
+    // console.log("videoState", videoState);
     return (
         <>
             <VideoPlayer 
                 url={url} 
                 updateVideoState={updateVideoState} 
                 syncVideo={syncVideo} 
-                playedSeconds={videoState.playedSeconds? videoState.playedSeconds: 0}
+                playedSeconds={0}
                 playing={videoState.playing? videoState.playing: false}
             />
             <form id="changeVideoForm" onSubmit={onSubmit}>

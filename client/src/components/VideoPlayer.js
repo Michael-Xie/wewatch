@@ -33,6 +33,12 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
     
     const onReady = function(event) {
         console.log("ready", event);
+        if (playedSeconds && myRef && myRef.current) {
+            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
+            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
+            //     myRef.current.seekTo(playSeconds, "seconds");
+            // }
+        }
     }
     const onPlay = function(event) {
         console.log("playing...");
