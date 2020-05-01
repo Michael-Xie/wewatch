@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+
 import {useVideoPlayerSync} from "../src/hooks/useVideoPlayerSync";
 import VideoPlayerSync from "./components/VideoPlayerSync";
+
+import VideoRoom from './components/VideoRoom';
+
 import axios from "axios";
 const twilioSync = require('twilio-sync');
 
@@ -63,16 +67,27 @@ function App() {
                   // }
               })
 
+
           })
       }
   });
   return (
     <div className="App">
+
       <VideoPlayerSync 
         videoState={videoState} 
         updateVideoState={updateVideoState}
         syncVideo={syncVideo}
       />
+
+      <header>
+        <h1>Together WeWatch</h1>
+      </header>
+        <VideoRoom />
+        <VideoPlayer/> 
+      <footer>
+        <p>April 2020</p>
+      </footer>
     </div>
   );
 }
