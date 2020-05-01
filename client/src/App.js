@@ -74,17 +74,17 @@ function App() {
   return (
     <div className="App">
 
+
       <VideoPlayerSync 
         videoState={videoState} 
         updateVideoState={updateVideoState}
         syncVideo={syncVideo}
       />
-
       <header>
         <h1>Together WeWatch</h1>
       </header>
+
         <VideoRoom />
-        <VideoPlayer/> 
       <footer>
         <p>April 2020</p>
       </footer>

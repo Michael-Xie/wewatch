@@ -42,11 +42,11 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
     }
     const onPlay = function(event) {
         console.log("playing...");
-        updateVideoState(url, true);
+        updateVideoState({url: url, playing: true});
     }
     const onPause = function(event) {
         console.log("pausing...");
-        updateVideoState(url, false);
+        updateVideoState({url: url, playing: false});
     }
 
 
