@@ -1,50 +1,58 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 // import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player';
 import { Button, Input } from '@material-ui/core';
 
-const VideoPlayer = function({props}) {
-    const [url, setUrl] = useState('https://www.youtube.com/watch?v=ysz5S6PUM-U');
+const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syncVideo}) {
+
+    const myRef = useRef();
+
     // 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-    const opts = {
-        height: '390',
-        width: '640',
-        playerVars: {
-          // https://developers.google.com/youtube/player_parameters
-          autoplay: 1,
+
+
+
+    useEffect(() => {
+        // myRef.current.seekTo(videoState.playedSeconds, "seconds");
+        if (playedSeconds && myRef && myRef.current) {
+            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
+            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
+            //     myRef.current.seekTo(playSeconds, "seconds");
+            // }
         }
-    };
-    const _onReady = function(event) {
-        // access to player in all event handlers via event.target
-        // event.target.pauseVideo();
-        console.log("onReady", event);
-    }
+    }, [playedSeconds])
 
-    const _onSubmit = function(event) {
-        console.log("before Link", event.target);
 
-        event.preventDefault();
-        console.log("Link", event.target);
-        setUrl(event.target.value);
-    }
-    const handleOnChange = (e) => {
-        console.log(e.target.value);
-        setUrl(e.target.value);
-    };
+    // const opts = {
+    //     height: '390',
+    //     width: '640',
+    //     playerVars: {
+    //       // https://developers.google.com/youtube/player_parameters
+    //       autoplay: 1,
+    //     }
+    // };
     
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(e);
-      }
+    const onReady = function(event) {
+        console.log("ready", event);
+        if (playedSeconds && myRef && myRef.current) {
+            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
+            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
+            //     myRef.current.seekTo(playSeconds, "seconds");
+            // }
+        }
+    }
+    const onPlay = function(event) {
+        console.log("playing...");
+        updateVideoState(url, true);
+    }
+    const onPause = function(event) {
+        console.log("pausing...");
+        updateVideoState(url, false);
+    }
 
+
+    
     return (
-        <>
-            <ReactPlayer url={url} controls onReady={_onReady}/>
-            <form id="changeVideoForm" onSubmit={handleSubmit}>
-                <Input type="text" placeholder="Enter a video link and watch with friends..." name="link" value={url} onChange={handleOnChange} defaultValue="https://"/>
-            </form>
-        </>
-
+        <ReactPlayer ref={myRef} url={url} controls playing={playing} onPlay={onPlay} onPause={onPause} onReady={onReady}/>
     )
 }
 
