@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-// import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player';
-import { Button, Input } from '@material-ui/core';
+
+import { Input } from '@material-ui/core';
 import VideoPlayer from "./VideoPlayer";
 const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
     const [url, setUrl] = useState('https://www.youtube.com/watch?v=ysz5S6PUM-U');
@@ -13,15 +12,15 @@ const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
     function onSubmit(e) {
         e.preventDefault();
         if (url) {
-          console.log('onSubmit...'); 
-          updateVideoState(url, false);
+          console.log('onSubmit...', videoState); 
+          updateVideoState({url: url});
         }
     }
     // console.log("videoState", videoState);
     return (
         <>
             <VideoPlayer 
-                url={url} 
+                url={videoState.url} 
                 updateVideoState={updateVideoState} 
                 syncVideo={syncVideo} 
                 playedSeconds={0}
@@ -29,6 +28,7 @@ const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
             />
             <form id="changeVideoForm" onSubmit={onSubmit}>
                 <Input type="text" placeholder="Enter a video link and watch with friends..." name="link" value={url} onChange={onChange} />
+                <input type="submit" value="Submit" />
             </form>
         </>
     )

@@ -1,15 +1,14 @@
 export const useVideoPlayerSync = function(videoState, setVideoState, twilioSync) {
-    const updateVideoState = (url, playing) => {
+    const updateVideoState = (curr) => {
         setVideoState((prev) => {
             return {...prev, 
-                url: url,
-                playing: playing,
+                ...curr
             }
         });
         if (twilioSync) {
             twilioSync.document("videoState")
             .then((syncDoc) => {
-                syncDoc.update({url: url, playing: playing})
+                syncDoc.update({...curr})
             })
         }
     }
