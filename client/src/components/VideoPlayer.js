@@ -33,20 +33,18 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
     
     const onReady = function(event) {
         console.log("ready", event);
-        if (playedSeconds && myRef && myRef.current) {
-            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
-            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
-            //     myRef.current.seekTo(playSeconds, "seconds");
-            // }
-        }
+        // if (myRef && myRef.current) {
+        //     console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
+        //     myRef.current.seekTo(0, "seconds");
+        // }
     }
     const onPlay = function(event) {
         console.log("playing...");
-        updateVideoState({url: url, playing: true});
+        updateVideoState({playing: true});
     }
     const onPause = function(event) {
         console.log("pausing...");
-        updateVideoState({url: url, playing: false});
+        updateVideoState({playing: false});
     }
 
 
