@@ -5,7 +5,7 @@ import VideoPlayer from "./VideoPlayer";
 const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
     const [url, setUrl] = useState('https://www.youtube.com/watch?v=ysz5S6PUM-U');
     const onChange = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         setUrl(e.target.value);
     };
 
@@ -23,7 +23,7 @@ const VideoPlayerSync = function({videoState, updateVideoState, syncVideo}) {
                 url={videoState.url} 
                 updateVideoState={updateVideoState} 
                 syncVideo={syncVideo} 
-                playedSeconds={0}
+                playedSeconds={videoState.playedSeconds}
                 playing={videoState.playing? videoState.playing: false}
             />
             <form id="changeVideoForm" onSubmit={onSubmit}>

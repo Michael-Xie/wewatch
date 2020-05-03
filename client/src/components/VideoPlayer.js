@@ -7,17 +7,16 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
 
     const myRef = useRef();
 
-    // 'https://www.youtube.com/watch?v=ysz5S6PUM-U'
-
-
+    const [timeStamp, setTimeStamp] = useState({play: 0, pause: 0})
 
     useEffect(() => {
         // myRef.current.seekTo(videoState.playedSeconds, "seconds");
-        if (playedSeconds && myRef && myRef.current) {
-            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
-            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
-            //     myRef.current.seekTo(playSeconds, "seconds");
-            // }
+        if (playedSeconds && myRef && myRef.current && myRef.current.getCurrentTime()) {
+            console.log('current time', myRef.current.getCurrentTime(), typeof myRef.current.getCurrentTime(), 'state time', playedSeconds, typeof playedSeconds);
+            if (Math.abs(myRef.current.getCurrentTime().toFixed(0) - playedSeconds.toFixed(0)) > 1) { // ignore lag of <= 1sec
+                console.log("seeking to", playedSeconds);
+                myRef.current.seekTo(playedSeconds, "seconds");
+            }
         }
     }, [playedSeconds])
 
@@ -32,21 +31,27 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
     // };
     
     const onReady = function(event) {
-        console.log("ready", event);
-        if (playedSeconds && myRef && myRef.current) {
-            console.log('current time', myRef.current.getCurrentTime(), 'state time', playedSeconds);
-            // if (Math.abs(myRef.current.getCurrentTime() - playedSeconds) > 0) {
-            //     myRef.current.seekTo(playSeconds, "seconds");
-            // }
-        }
+        console.log("ready...", event);
     }
+    
     const onPlay = function(event) {
         console.log("playing...");
-        updateVideoState({url: url, playing: true});
+        syncVideo(myRef.current.getCurrentTime(), myRef)
+        updateVideoState({playing: true});
+        setTimeStamp((prev) => {
+            return {...prev,
+            play: myRef.current.getCurrentTime()}
+        })
     }
     const onPause = function(event) {
         console.log("pausing...");
-        updateVideoState({url: url, playing: false});
+        // syncVideo(myRef.current.getCurrentTime(), myRef)
+        updateVideoState({playing: false});
+        setTimeStamp((prev) => {
+            return {...prev,
+            pause: myRef.current.getCurrentTime()}
+        })
+
     }
 
 
