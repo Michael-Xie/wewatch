@@ -10,13 +10,13 @@ WeWatch is a virtual couch for friends to watch videos together and share laught
 
 ## Features
 
-### Working
+### Works
 - play and pause synchronously across client for video
+- synchronize video scrum change
 - synchronize video link change
 - participants can stream themselves via video/audio
 
 ### WIP
-- synchronize video scrum change
 - allow participants to join room
 - create room for participants to watch video together
 
