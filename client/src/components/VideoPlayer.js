@@ -58,7 +58,7 @@ const VideoPlayer = function({url, playing, playedSeconds, updateVideoState, syn
     }
     const onPause = function(event) {
         console.log("pausing...");
-        syncVideo(myRef.current.getCurrentTime(), myRef)
+        // syncVideo(myRef.current.getCurrentTime(), myRef)
         updateVideoState({playing: false});
         setTimeStamp((prev) => {
             return {...prev,
